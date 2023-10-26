@@ -32,10 +32,10 @@
                 @foreach (var employee in employees) {
                     <tr>
                         <td>
-                            @employee.EmployeeID
+                            @employee.EmployeeId
                         </td>
                         <td>
-                            <a href=@($"employeedetails/{employee.EmployeeID}")>@employee.EmployeeName</a>
+                            <a href=@($"employeedetails/{employee.EmployeeId}")>@employee.EmployeeName</a>
                         </td>
                         <td>
                             @employee.Gender

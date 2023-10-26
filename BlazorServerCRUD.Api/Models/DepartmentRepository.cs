@@ -11,7 +11,7 @@ namespace BlazorServerCRUD.Api.Models
 
         public Department GetDepartment(int departmentId)
         {
-            return _appDbContext.Departments.FirstOrDefault(e => e.DepartmentID  == departmentId);
+            return _appDbContext.Departments.FirstOrDefault(e => e.DepartmentId  == departmentId);
         }
 
         public IEnumerable<Department> GetDepartments()

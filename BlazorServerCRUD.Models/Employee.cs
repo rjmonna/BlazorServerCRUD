@@ -8,7 +8,7 @@ namespace BlazorServerCRUD.Models
 {
     public class Employee
     {
-        public int EmployeeID { get; set; }
+        public int EmployeeId { get; set; }
 
         public string EmployeeName { get; set; }
 
@@ -19,6 +19,6 @@ namespace BlazorServerCRUD.Models
 
         public int DepartmentId { get; set; }
 
-        public Department Department { get; set; }
+        public Department? Department { get; set; }
     }
 }

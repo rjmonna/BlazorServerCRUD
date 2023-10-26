@@ -8,13 +8,7 @@
     OnValidSubmit="@Create" />
 
 @code {
-    Models.Employee employee = new Models.Employee
-    {
-        Department = new Models.Department
-        {
-            DepartmentID = 0
-        }
-    };
+    Models.Employee employee = new Models.Employee();
 
     async Task Create()
     {

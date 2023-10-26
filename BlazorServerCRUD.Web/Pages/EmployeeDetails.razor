@@ -11,12 +11,12 @@
                     <h1>@Employee.EmployeeName</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h4>Employee ID : @Employee.EmployeeID</h4>
+                    <h4>Employee ID : @Employee.EmployeeId</h4>
                     <h4>Department : @Employee.Department?.DepartmentName</h4>
                 </div>
                 <div class="card-footer text-center">
                     <a class="btn btn-primary" href="/">Back</a>
-                    <a class="btn btn-primary" href="/updateemployee/@Employee.EmployeeID">Edit</a>
+                    <a class="btn btn-primary" href="/updateemployee/@Employee.EmployeeId">Edit</a>
                     <button class="btn btn-danger" @onclick="DeleteEmployee">Delete</button>
                 </div>
             }

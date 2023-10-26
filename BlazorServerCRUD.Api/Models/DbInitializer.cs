@@ -14,7 +14,7 @@ namespace BlazorServerCRUD.Api.Models
 
             var department1 = new Department
             {
-                DepartmentID = 1,
+                DepartmentId = 1,
                 DepartmentName = "Admin"
             };
 
@@ -24,13 +24,13 @@ namespace BlazorServerCRUD.Api.Models
             );
             context.Add(
                 new Department {
-                    DepartmentID = 2,
+                    DepartmentId = 2,
                     DepartmentName = "HR"
                 }
             );
             context.Add(
                 new Department {
-                    DepartmentID = 3,
+                    DepartmentId = 3,
                     DepartmentName = "Payroll"
                 }
             );
@@ -39,7 +39,7 @@ namespace BlazorServerCRUD.Api.Models
             context.Add(
                 new Employee
                 {
-                    EmployeeID = 1,
+                    EmployeeId = 1,
                     EmployeeName = "John",
                     DateOfBirth = new DateTime(1989, 01, 01),
                     Gender = Gender.Male,

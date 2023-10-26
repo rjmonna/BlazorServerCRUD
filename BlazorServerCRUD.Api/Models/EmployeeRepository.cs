@@ -20,7 +20,7 @@ namespace BlazorServerCRUD.Api.Models
 
         public async Task DeleteEmployee(int employeeId)
         {
-            var result = await _appDbContext.Employees.FirstOrDefaultAsync(e => e.EmployeeID == employeeId);
+            var result = await _appDbContext.Employees.FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
 
             if (result != null)
             {
@@ -37,7 +37,7 @@ namespace BlazorServerCRUD.Api.Models
             var result = await _appDbContext
                 .Employees
                 .Include(e => e.Department)
-                .FirstOrDefaultAsync(e => e.EmployeeID == employeeId);
+                .FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
 
             return result;
         }
@@ -52,7 +52,7 @@ namespace BlazorServerCRUD.Api.Models
 
         public async Task<Employee> UpdateEmployee(Employee employee)
         {
-            var result = await _appDbContext.Employees.FirstOrDefaultAsync(e => e.EmployeeID == employee.EmployeeID);
+            var result = await _appDbContext.Employees.FirstOrDefaultAsync(e => e.EmployeeId == employee.EmployeeId);
 
             if (result != null)
             {
