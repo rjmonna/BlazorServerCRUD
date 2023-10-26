@@ -1,0 +1,11 @@
+/home/rjmonna/src/BlazorServerCRUD/BlazorServerCRUD.Models/bin/Debug/net7.0/BlazorServerCRUD.Models.deps.json
+/home/rjmonna/src/BlazorServerCRUD/BlazorServerCRUD.Models/bin/Debug/net7.0/BlazorServerCRUD.Models.dll
+/home/rjmonna/src/BlazorServerCRUD/BlazorServerCRUD.Models/bin/Debug/net7.0/BlazorServerCRUD.Models.pdb
+/home/rjmonna/src/BlazorServerCRUD/BlazorServerCRUD.Models/obj/Debug/net7.0/BlazorServerCRUD.Models.GeneratedMSBuildEditorConfig.editorconfig
+/home/rjmonna/src/BlazorServerCRUD/BlazorServerCRUD.Models/obj/Debug/net7.0/BlazorServerCRUD.Models.AssemblyInfoInputs.cache
+/home/rjmonna/src/BlazorServerCRUD/BlazorServerCRUD.Models/obj/Debug/net7.0/BlazorServerCRUD.Models.AssemblyInfo.cs
+/home/rjmonna/src/BlazorServerCRUD/BlazorServerCRUD.Models/obj/Debug/net7.0/BlazorServerCRUD.Models.csproj.CoreCompileInputs.cache
+/home/rjmonna/src/BlazorServerCRUD/BlazorServerCRUD.Models/obj/Debug/net7.0/BlazorServerCRUD.Models.dll
+/home/rjmonna/src/BlazorServerCRUD/BlazorServerCRUD.Models/obj/Debug/net7.0/refint/BlazorServerCRUD.Models.dll
+/home/rjmonna/src/BlazorServerCRUD/BlazorServerCRUD.Models/obj/Debug/net7.0/BlazorServerCRUD.Models.pdb
+/home/rjmonna/src/BlazorServerCRUD/BlazorServerCRUD.Models/obj/Debug/net7.0/ref/BlazorServerCRUD.Models.dll

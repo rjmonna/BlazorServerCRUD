@@ -1,0 +1,24 @@
+﻿@page "/createemployee"
+@using Pages
+@inject Services.IEmployeeService Service
+@inject NavigationManager navManager
+<h3>CreateEmployee</h3>
+
+<Form ButtonText="Create Employee" employee="@employee"
+    OnValidSubmit="@Create" />
+
+@code {
+    Models.Employee employee = new Models.Employee
+    {
+        Department = new Models.Department
+        {
+            DepartmentID = 0
+        }
+    };
+
+    async Task Create()
+    {
+        await Service.AddEmployee(employee);
+        navManager.NavigateTo("/");
+    }
+}

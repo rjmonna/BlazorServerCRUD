@@ -1,0 +1,43 @@
+﻿@page "/employeedetails/{id}"
+@inject Services.IEmployeeService Service
+@inject NavigationManager navManager
+<h3>EmployeeDetails</h3>
+
+<div class="row justify content center m.3">
+    <div class="col-sm-8">
+        <div class="card">
+            @if(Employee != null) {
+                <div class="card-header">
+                    <h1>@Employee.EmployeeName</h1>
+                </div>
+                <div class="card-body text-center">
+                    <h4>Employee ID : @Employee.EmployeeID</h4>
+                    <h4>Department : @Employee.Department?.DepartmentName</h4>
+                </div>
+                <div class="card-footer text-center">
+                    <a class="btn btn-primary" href="/">Back</a>
+                    <a class="btn btn-primary" href="/updateemployee/@Employee.EmployeeID">Edit</a>
+                    <button class="btn btn-danger" @onclick="DeleteEmployee">Delete</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    public Models.Employee Employee { get; set; } = new Models.Employee();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Employee = await Service.GetEmployee(int.Parse(Id));
+    }
+
+    protected async void DeleteEmployee()
+    {
+        await Service.DeleteEmployee(int.Parse(Id));
+        navManager.NavigateTo("/");
+    }
+}

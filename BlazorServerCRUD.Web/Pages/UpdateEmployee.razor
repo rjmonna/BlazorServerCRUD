@@ -1,0 +1,26 @@
+﻿@page "/updateemployee/{id}"
+@using Pages
+@inject Services.IEmployeeService Service
+@inject NavigationManager navManager
+<h3>CreateEmployee</h3>
+
+<Form ButtonText="Update Employee" employee="@employee"
+    OnValidSubmit="@Update" />
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    Models.Employee employee = new Models.Employee();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        employee = await Service.GetEmployee(int.Parse(Id));
+    }
+
+    async Task Update()
+    {
+        await Service.UpdateEmployee(employee);
+        navManager.NavigateTo("/");
+    }
+}
