@@ -7,4 +7,5 @@ Based on this article by rineshpk: <https://dev.to/rineshpk/blazor-server-crud-a
 * Database does not contain all sample data from the article.
 
 ## Known bugs
-* Delete does not work.
+
+* Add does not work.
