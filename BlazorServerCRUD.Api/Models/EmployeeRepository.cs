@@ -11,11 +11,11 @@ namespace BlazorServerCRUD.Api.Models
         }
         public async Task<Employee> AddEmployee(Employee employee)
         {
-            var result = await _appDbContext.Employees.AddAsync(employee);
+            await _appDbContext.Employees.AddAsync(employee);
 
             await _appDbContext.SaveChangesAsync();
 
-            return result.Entity;
+            return employee;
         }
 
         public async Task DeleteEmployee(int employeeId)
