@@ -9,6 +9,7 @@ namespace BlazorServerCRUD.Api.Models
         public EmployeeRepository(AppDbContext appDbContext) {
             _appDbContext = appDbContext;
         }
+        
         public async Task<Employee?> AddEmployee(Employee employee)
         {
             await _appDbContext.Employees.AddAsync(employee);

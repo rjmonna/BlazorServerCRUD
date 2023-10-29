@@ -19,5 +19,42 @@ namespace BlazorServerCRUD.Api.Models
         {
             return await _appDbContext.Departments.ToListAsync();
         }
+
+        public async Task<Department?> AddDepartment(Department department)
+        {
+            await _appDbContext.Departments.AddAsync(department);
+
+            await _appDbContext.SaveChangesAsync();
+
+            return department;
+        }
+
+        public async Task DeleteDepartment(int departmentId)
+        {
+            var result = await _appDbContext.Departments.FirstOrDefaultAsync(e => e.DepartmentId == departmentId);
+
+            if (result != null)
+            {
+                _appDbContext.Departments.Remove(result);
+
+                await _appDbContext.SaveChangesAsync();
+            }
+
+            return;
+        }
+
+        public async Task<Department?> UpdateDepartment(Department department)
+        {
+            var result = await _appDbContext.Departments.FirstOrDefaultAsync(e => e.DepartmentId == department.DepartmentId);
+
+            if (result != null)
+            {
+                result.DepartmentName = department.DepartmentName;
+
+                await _appDbContext.SaveChangesAsync();
+            }
+
+            return result;
+        }
     }
 }
