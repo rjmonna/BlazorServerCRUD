@@ -4,8 +4,8 @@ namespace BlazorServerCRUD.Api.Models
 {
     public interface IDepartmentRempository
     {
-        Department GetDepartment(int departmentId);
+        Task<Department> GetDepartment(int departmentId);
 
-        IEnumerable<Department> GetDepartments();
+        Task<IEnumerable<Department>> GetDepartments();
     }
 }

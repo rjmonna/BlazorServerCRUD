@@ -1,6 +1,4 @@
 using BlazorServerCRUD.Web.Services;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient<IEmployeeService, EmployeeService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5000");
+});
+builder.Services.AddHttpClient<IDepartmentService, DepartmentService>(client =>
 {
     client.BaseAddress = new Uri("http://localhost:5000");
 });

@@ -1,4 +1,5 @@
 using BlazorServerCRUD.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorServerCRUD.Api.Models
 {
@@ -9,14 +10,14 @@ namespace BlazorServerCRUD.Api.Models
         public DepartmentRepository(AppDbContext appDbContext) =>
             _appDbContext = appDbContext;
 
-        public Department GetDepartment(int departmentId)
+        public Task<Department> GetDepartment(int departmentId)
         {
-            return _appDbContext.Departments.FirstOrDefault(e => e.DepartmentId  == departmentId);
+            return _appDbContext.Departments.FirstOrDefaultAsync(e => e.DepartmentId  == departmentId);
         }
 
-        public IEnumerable<Department> GetDepartments()
+        public async Task<IEnumerable<Department>> GetDepartments()
         {
-            return _appDbContext.Departments.ToList();
+            return await _appDbContext.Departments.ToListAsync();
         }
     }
 }
