@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BlazorServerCRUD.Models;
 
 namespace BlazorServerCRUD.Api.Models
@@ -46,6 +42,39 @@ namespace BlazorServerCRUD.Api.Models
                     Department = department1
                 }
             );
+
+            context.Add(
+                new Employee
+                {
+                    EmployeeId = 2,
+                    EmployeeName = "Matt",
+                    DateOfBirth = new DateTime(1989, 01, 01),
+                    Gender = Gender.Male,
+                    DepartmentId = 2
+
+                });
+
+            context.Add(
+                new Employee
+                {
+                    EmployeeId = 3,
+                    EmployeeName = "Carol",
+                    DateOfBirth = new DateTime(1989, 01, 01),
+                    Gender = Gender.Female,
+                    DepartmentId = 3
+
+                });
+
+            context.Add(
+                new Employee
+                {
+                    EmployeeId = 4,
+                    EmployeeName = "Tony",
+                    DateOfBirth = new DateTime(1989, 01, 01),
+                    Gender = Gender.Male,
+                    DepartmentId = 3
+
+                });
 
             context.SaveChanges();
         }

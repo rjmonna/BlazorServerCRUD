@@ -10,9 +10,9 @@ namespace BlazorServerCRUD.Api.Models
         public DepartmentRepository(AppDbContext appDbContext) =>
             _appDbContext = appDbContext;
 
-        public Task<Department> GetDepartment(int departmentId)
+        public Task<Department?> GetDepartment(int departmentId)
         {
-            return _appDbContext.Departments.FirstOrDefaultAsync(e => e.DepartmentId  == departmentId);
+            return _appDbContext.Departments.FirstOrDefaultAsync(e => e.DepartmentId == departmentId);
         }
 
         public async Task<IEnumerable<Department>> GetDepartments()

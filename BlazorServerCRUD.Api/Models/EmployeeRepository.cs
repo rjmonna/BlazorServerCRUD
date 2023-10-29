@@ -9,7 +9,7 @@ namespace BlazorServerCRUD.Api.Models
         public EmployeeRepository(AppDbContext appDbContext) {
             _appDbContext = appDbContext;
         }
-        public async Task<Employee> AddEmployee(Employee employee)
+        public async Task<Employee?> AddEmployee(Employee employee)
         {
             await _appDbContext.Employees.AddAsync(employee);
 
@@ -32,7 +32,7 @@ namespace BlazorServerCRUD.Api.Models
             return;
         }
 
-        public async Task<Employee> GetEmployee(int employeeId)
+        public async Task<Employee?> GetEmployee(int employeeId)
         {
             var result = await _appDbContext
                 .Employees
@@ -50,7 +50,7 @@ namespace BlazorServerCRUD.Api.Models
                 .ToListAsync();
         }
 
-        public async Task<Employee> UpdateEmployee(Employee employee)
+        public async Task<Employee?> UpdateEmployee(Employee employee)
         {
             var result = await _appDbContext.Employees.FirstOrDefaultAsync(e => e.EmployeeId == employee.EmployeeId);
 
@@ -58,7 +58,7 @@ namespace BlazorServerCRUD.Api.Models
             {
                 result.EmployeeName = employee.EmployeeName;
                 result.Gender = employee.Gender;
-                //result.DepartmentId = employee.DepartmentId;
+                result.DepartmentId = employee.DepartmentId;
                 result.DateOfBirth = employee.DateOfBirth;
 
                 await _appDbContext.SaveChangesAsync();
