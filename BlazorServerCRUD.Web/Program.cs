@@ -2,16 +2,18 @@ using BlazorServerCRUD.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var apiUrl = builder.Configuration.GetValue<string>("ApiUrl") ?? throw new InvalidOperationException("Configuration of ApiUrl is missing.");
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient<IEmployeeService, EmployeeService>(client =>
 {
-    client.BaseAddress = new Uri("http://localhost:5000");
+    client.BaseAddress = new Uri(apiUrl);
 });
 builder.Services.AddHttpClient<IDepartmentService, DepartmentService>(client =>
 {
-    client.BaseAddress = new Uri("http://localhost:5000");
+    client.BaseAddress = new Uri(apiUrl);
 });
 
 var app = builder.Build();

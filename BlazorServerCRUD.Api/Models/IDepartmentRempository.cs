@@ -1,4 +1,5 @@
 using BlazorServerCRUD.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorServerCRUD.Api.Models
 {

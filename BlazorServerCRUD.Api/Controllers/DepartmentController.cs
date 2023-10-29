@@ -21,6 +21,12 @@ namespace BlazorServerCRUD.Api.Controllers
             return Ok(await _departmentRepository.GetDepartments());
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetDepartment(int id)
+        {
+            return Ok(await _departmentRepository.GetDepartment(id));
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddDepartment(Department department)
         {
