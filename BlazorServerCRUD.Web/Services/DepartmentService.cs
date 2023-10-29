@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BlazorServerCRUD.Models;
 
 namespace BlazorServerCRUD.Web.Services
@@ -18,6 +14,26 @@ namespace BlazorServerCRUD.Web.Services
         public async Task<IEnumerable<Department>> GetDepartments()
         {
             return await _httpClient.GetFromJsonAsync<Department[]>("api/department");
+        }
+
+        public async Task AddDepartment(Department department)
+        {
+            await _httpClient.PostAsJsonAsync($"api/department", department);
+        }
+
+        public async Task DeleteDepartment(int id)
+        {
+            await _httpClient.DeleteAsync($"api/department/{id}");
+        }
+
+        public async Task<Department> GetDepartment(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<Department>($"api/department/{id}");
+        }
+
+        public async Task UpdateDepartment(Department department)
+        {
+            await _httpClient.PutAsJsonAsync($"api/department", department);
         }
     }
 }

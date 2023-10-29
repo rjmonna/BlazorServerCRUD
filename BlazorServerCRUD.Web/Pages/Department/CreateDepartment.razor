@@ -1,0 +1,18 @@
+﻿@page "/createdepartment"
+@using Pages
+@inject Services.IDepartmentService Service
+@inject NavigationManager navManager
+<h3>CreateEmployee</h3>
+
+<Form ButtonText="Create Department" department="@department"
+    OnValidSubmit="@Create" />
+
+@code {
+    Models.Department department = new Models.Department();
+
+    async Task Create()
+    {
+        await Service.AddDepartment(department);
+        navManager.NavigateTo("/departments");
+    }
+}
