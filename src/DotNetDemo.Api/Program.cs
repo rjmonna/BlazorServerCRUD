@@ -22,6 +22,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
     options.UseInMemoryDatabase("Default")
 );
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("Default")
+    )
+
+    //options.UseInMemoryDatabase("Default")
+);
 
 builder.Services.AddScoped<IDepartmentRempository, DepartmentRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();

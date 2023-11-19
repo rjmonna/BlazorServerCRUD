@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetDemo.Api.Models
 {
-    public interface IDepartmentRempository
+    public interface IDepartmentRepository
     {
         Task<Department?> GetDepartment(int departmentId);
 

@@ -1,0 +1,43 @@
+﻿@page "/article/{id}"
+@inject Services.IArticleService Service
+@inject NavigationManager navManager
+<h3>EmployeeDetails</h3>
+
+<div class="row justify content center m.3">
+    <div class="col-sm-8">
+        <div class="card">
+            @if(Article != null) {
+                <div class="card-header">
+                    <h1>@Article.Subject</h1>
+                </div>
+                <div class="card-body text-center">Employee
+                    <h4>Employee ID : @Article.ArticleId</h4>
+                    <h4>Department : @Article.Subject</h4>
+                </div>
+                <div class="card-footer text-center">
+                    <a class="btn btn-primary" href="/">Back</a>
+                    <a class="btn btn-primary" href="/updateemployee/@Article.ArticleId">Edit</a>
+                    <button class="btn btn-danger" @onclick="DeleteEmployee">Delete</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    public Models.Article Article { get; set; } = new Models.Article();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Article = await Service.GetArticle(Guid.Parse(Id));
+    }
+
+    protected async void DeleteEmployee()
+    {
+        await Service.DeleteArticle(Guid.Parse(Id));
+        navManager.NavigateTo("/");
+    }
+}

@@ -78,5 +78,30 @@ namespace DotNetDemo.Api.Models
 
             context.SaveChanges();
         }
+
+        public static void Initialize(AppSecondDbContext context)
+        {
+            if (context.Articles.Any()) return;
+
+            Guid id = Guid.NewGuid();
+
+            Article article = new Article
+            {
+                ArticleId = id,
+                Subject = "test",
+                Body = "test",
+                CreationDate = DateTime.UtcNow,
+                ModificationDate = DateTime.UtcNow,
+                ArticleComments = new[] { new ArticleComment {
+                    ArticleCommentId = Guid.NewGuid(),
+                    Subject = "test",
+                    Body = "test"
+                } }
+            };
+
+            context.Articles.Add(article);
+
+            context.SaveChanges();
+        }
     }
 }
