@@ -23,9 +23,6 @@
                 @foreach (var article in articles) {
                     <tr>
                         <td>
-                            @article.ArticleId
-                        </td>
-                        <td>
                             <a href=@($"article/{article.ArticleId}")>@article.ArticleId</a>
                         </td>
                         <td>
