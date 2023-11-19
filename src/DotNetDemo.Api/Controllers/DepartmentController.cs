@@ -8,9 +8,9 @@ namespace DotNetDemo.Api.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
-        private readonly IDepartmentRempository _departmentRepository;
+        private readonly IDepartmentRepository _departmentRepository;
 
-        public DepartmentController(IDepartmentRempository departmentRepository)
+        public DepartmentController(IDepartmentRepository departmentRepository)
         {
             _departmentRepository = departmentRepository;
         }

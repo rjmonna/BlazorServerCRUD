@@ -45,8 +45,8 @@ namespace DotNetDemo.Api.Models
 
         public async Task<IEnumerable<Article>> SearchArticles()
         {
-            return (IEnumerable<Article>)await _appDbContext
-                .ArticleComments
+            return await _appDbContext
+                .Articles
                 .ToListAsync();
         }
 

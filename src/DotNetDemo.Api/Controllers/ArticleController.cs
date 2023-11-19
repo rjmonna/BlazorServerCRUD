@@ -8,15 +8,17 @@ namespace DotNetDemo.Api.Controllers
     [ApiController]
     public class ArticleController : ControllerBase
     {
+        private readonly IArticleCommentRepository _articleCommentRepository;
         private readonly IArticleRepository _articleRepository;
 
-        public ArticleController(IArticleRepository articleRepository)
+        public ArticleController(IArticleRepository articleRepository, IArticleCommentRepository articleCommentRepository)
         {
+            _articleCommentRepository = articleCommentRepository;
             _articleRepository = articleRepository;
         }
 
         [HttpGet]
-        public async Task<ActionResult> SearchArticles()
+        public async Task<ActionResult> SearchArticles(int? top = 0, int? skip = 0, bool? isDescending = true)
         {
             return Ok(await _articleRepository.SearchArticles());
         }
@@ -43,10 +45,21 @@ namespace DotNetDemo.Api.Controllers
             return Ok();
         }
 
-        [HttpGet("{id}")]
+        [HttpDelete("{id}")]
         public ActionResult DeleteArticle(Guid id)
         {
             _articleRepository.DeleteArticle(id);
+
+            return Ok();
+        }
+
+        [HttpPost("{id}/comment")]
+        public ActionResult CommentArticle(ArticleComment comment)
+        {
+            _articleCommentRepository.CreateArticleComment(new Models.Azure.ArticleComment{
+                Subject = comment.Subject,
+                Body = comment.Body
+            });
 
             return Ok();
         }

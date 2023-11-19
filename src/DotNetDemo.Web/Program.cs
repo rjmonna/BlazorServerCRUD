@@ -19,6 +19,10 @@ builder.Services.AddHttpClient<IArticleService, ArticleService>(client =>
 {
     client.BaseAddress = new Uri(apiUrl);
 });
+builder.Services.AddHttpClient<IArticleCommentService, ArticleCommentService>(client =>
+{
+    client.BaseAddress = new Uri(apiUrl);
+});
 
 var app = builder.Build();
 

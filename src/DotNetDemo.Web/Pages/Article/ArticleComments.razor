@@ -1,7 +1,9 @@
 ﻿@page "/article/{id}"
+@using TinyMCE.Blazor
+@using BlazorCaptcha
 @inject Services.IArticleService Service
 @inject NavigationManager navManager
-<h3>EmployeeDetails</h3>
+<h3>Article with comments</h3>
 
 <div class="row justify content center m.3">
     <div class="col-sm-8">
@@ -10,14 +12,27 @@
                 <div class="card-header">
                     <h1>@Article.Subject</h1>
                 </div>
-                <div class="card-body text-center">Employee
+                <div class="card-body text-center">Article
                     <h4>Employee ID : @Article.ArticleId</h4>
                     <h4>Department : @Article.Subject</h4>
                 </div>
+                <div class="card-body text-center">Feedback
+                    <InputText @bind-Value="NewArticleComment.Subject" />
+                    <Editor @bind-Value="NewArticleComment.Body" ScriptSrc="/js/tinymce/tinymce.js" />
+                    <Captcha @bind-CaptchaWord="@Captcha" CharNumber="@CaptchaLetters" />
+                    <InputText @bind-Value="GivenCaptcha" />
+                    <button class="btn btn-danger" @onclick="SubmitComment">Submit</button>
+                </div>
+                <div class="card-body text-center">Comments
+                    @if(Article.ArticleComments != null) {
+                        @foreach(var comment in Article.ArticleComments) {
+                            <h4>@comment.Subject</h4>
+                            <p>@comment.Body</p>
+                        }
+                    }
+                </div>
                 <div class="card-footer text-center">
                     <a class="btn btn-primary" href="/">Back</a>
-                    <a class="btn btn-primary" href="/updateemployee/@Article.ArticleId">Edit</a>
-                    <button class="btn btn-danger" @onclick="DeleteEmployee">Delete</button>
                 </div>
             }
         </div>
@@ -30,14 +45,29 @@
 
     public Models.Article Article { get; set; } = new Models.Article();
 
+    public Models.ArticleComment NewArticleComment { get; set; } = new Models.ArticleComment();
+
+    private string Captcha = "";
+    private int CaptchaLetters = 5;
+
+    private string GivenCaptcha = "";
+
     protected override async Task OnInitializedAsync()
     {
+        Captcha = BlazorCaptcha.Tools.GetCaptchaWord(CaptchaLetters);
+
         Article = await Service.GetArticle(Guid.Parse(Id));
+
+        NewArticleComment.ArticleId = Article.ArticleId;
     }
 
-    protected async void DeleteEmployee()
+    protected async void SubmitComment()
     {
-        await Service.DeleteArticle(Guid.Parse(Id));
-        navManager.NavigateTo("/");
+        if (!String.IsNullOrWhiteSpace(GivenCaptcha) && Captcha == GivenCaptcha)
+        {
+            await Service.CommentArticle(NewArticleComment);
+
+            navManager.NavigateTo("/");
+        }
     }
 }

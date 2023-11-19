@@ -17,5 +17,7 @@ namespace DotNetDemo.Web.Services
         Task UpdateArticle(Article article);
 
         Task DeleteArticle(Guid id);
+
+        Task CommentArticle(ArticleComment comment);
     }
 }

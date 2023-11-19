@@ -2,17 +2,17 @@
 @using Pages
 @inject Services.IArticleService Service
 @inject NavigationManager navManager
-<h3>CreateEmployee</h3>
+<h3>Create new article</h3>
 
-<Form ButtonText="Create Employee" employee="@employee"
+<Form ButtonText="Create article" Article="@article"
     OnValidSubmit="@Create" />
 
 @code {
-    Models.Article employee = new Models.Article();
+    Models.Article article = new Models.Article();
 
     async Task Create()
     {
-        await Service.AddArticle(employee);
+        await Service.AddArticle(article);
         navManager.NavigateTo("/");
     }
 }

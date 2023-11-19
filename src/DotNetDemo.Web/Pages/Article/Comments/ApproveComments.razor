@@ -1,0 +1,44 @@
+﻿@page "/articles/comments/approve"
+@inject Services.IArticleCommentService Service
+<div>
+    <h3>Articles</h3>
+    <div class="form-group">
+        <a class="btn btn-success" href="createarticle"><i class="oi oi-plus"></i> Create New</a>
+    </div>
+</div>
+<div>
+    @if (ArticleComments != null) {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        ID
+                    </th>
+                    <th scope="col">
+                        Subject
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var comment in ArticleComments) {
+                    <tr>
+                        <td>
+                            <a href=@($"articledetails/{comment.ArticleId}")>@comment.ArticleId</a>
+                        </td>
+                        <td>
+                            @comment.Subject
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+@code {
+    private IEnumerable<Models.ArticleComment> ArticleComments;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ArticleComments = await Service.GetPendingArticleComments();
+    }
+}

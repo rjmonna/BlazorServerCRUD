@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DotNetDemo.Api.Models
 {
-    public class DepartmentRepository : IDepartmentRempository
+    public class DepartmentRepository : IDepartmentRepository
     {
         private readonly AppDbContext _appDbContext;
 

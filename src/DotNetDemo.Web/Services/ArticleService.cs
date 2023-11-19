@@ -39,5 +39,10 @@ namespace DotNetDemo.Web.Services
         {
             return await _httpClient.GetFromJsonAsync<Article[]>("api/article?top=10");
         }
+
+        public async Task CommentArticle(ArticleComment comment)
+        {
+            await _httpClient.PostAsJsonAsync($"api/article/{comment.ArticleId}/comment", comment);
+        }
     }
 }

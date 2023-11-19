@@ -1,21 +1,22 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
+@using TinyMCE.Blazor
 @inject Services.IArticleService Service
 
-@if (employee != null) {
-    <EditForm Model="@employee" OnValidSubmit="@OnValidSubmit">
+@if (Article != null) {
+    <EditForm Model="@Article" OnValidSubmit="@OnValidSubmit">
         <DataAnnotationsValidator />
         <div class="form-group">
-            <label>Employee Name :</label>
+            <label>Subject</label>
             <div>
-                <InputText @bind-Value="@employee.Subject" class="form-control col-sm-3" />
-                <ValidationMessage For="@(() => employee.Subject)" />
+                <InputText @bind-Value="@Article.Subject" class="form-control col-sm-3" />
+                <ValidationMessage For="@(() => Article.Subject)" />
             </div>
         </div>
         <div class="form-group">
-            <label>Employee Name :</label>
+            <label>Article</label>
             <div>
-                <InputText @bind-Value="@employee.Body" class="form-control col-sm-3" />
-                <ValidationMessage For="@(() => employee.Body)" />
+                <Editor @bind-Value="@Article.Body" class="form-control col-sm-3" Field="() => Article.Body" ScriptSrc="/js/tinymce/tinymce.js" />
+                <ValidationMessage For="@(() => Article.Body)" />
             </div>
         </div>
         <button type="submit" class="btn btn-success">
@@ -25,7 +26,7 @@
 }
 @code {
     [Parameter]
-    public Models.Article employee { get; set; }
+    public Models.Article Article { get; set; }
     [Parameter]
     public string ButtonText { get; set; } = "Save";
     [Parameter]

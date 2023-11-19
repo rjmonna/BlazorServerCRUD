@@ -1,7 +1,8 @@
 ﻿@page "/articledetails/{id}"
+@using TinyMCE.Blazor
 @inject Services.IArticleService Service
 @inject NavigationManager navManager
-<h3>EmployeeDetails</h3>
+<h3>Article details</h3>
 
 <div class="row justify content center m.3">
     <div class="col-sm-8">
@@ -14,10 +15,13 @@
                     <h4>ID : @Article.ArticleId</h4>
                     <h4>Subject : @Article.Subject</h4>
                 </div>
+                <div class="card-body text-center">
+                    <Editor @bind-Value="Article.Body" ScriptSrc="/js/tinymce/tinymce.js" />
+                </div>
                 <div class="card-footer text-center">
-                    <a class="btn btn-primary" href="/">Back</a>
-                    <a class="btn btn-primary" href="/updateemployee/@Article.ArticleId">Edit</a>
-                    <button class="btn btn-danger" @onclick="DeleteEmployee">Delete</button>
+                    <a class="btn btn-primary" href="/articles">Back</a>
+                    <a class="btn btn-primary" href="/updatearticle/@Article.ArticleId">Edit</a>
+                    <button class="btn btn-danger" @onclick="DeleteArticle">Delete</button>
                 </div>
             }
         </div>
@@ -35,7 +39,7 @@
         Article = await Service.GetArticle(Guid.Parse(Id));
     }
 
-    protected async void DeleteEmployee()
+    protected async void DeleteArticle()
     {
         await Service.DeleteArticle(Guid.Parse(Id));
         navManager.NavigateTo("/");

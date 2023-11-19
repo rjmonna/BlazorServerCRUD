@@ -3,6 +3,9 @@ using DotNetDemo.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Azure;
+using Microsoft.Extensions.DependencyInjection;
+using Azure.Data.Tables;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,19 +26,35 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("Default")
 );
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("Default")
-    )
+    // options.UseSqlServer(
+    //     builder.Configuration.GetConnectionString("Default")
+    // )
 
-    //options.UseInMemoryDatabase("Default")
+    options.UseInMemoryDatabase("Default")
+);
+builder.Services.AddDbContext<AppSecondDbContext>(options =>
+    // options.UseSqlServer(
+    //     builder.Configuration.GetConnectionString("Default")
+    // )
+
+    options.UseInMemoryDatabase("Default")
 );
 
-builder.Services.AddScoped<IDepartmentRempository, DepartmentRepository>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IArticleCommentRepository, ArticleCommentRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAzureClients(clientBuilder =>
+{
+    clientBuilder.AddTableServiceClient(
+        builder.Configuration.GetSection("ArticleCommentStorage")
+    );
+});
 
 var app = builder.Build();
 
@@ -46,6 +65,10 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<AppDbContext>();
     context.Database.EnsureCreated();
     DbInitializer.Initialize(context);
+
+    var secondContext = services.GetRequiredService<AppSecondDbContext>();
+    secondContext.Database.EnsureCreated();
+    DbInitializer.Initialize(secondContext);
 }
 
 // Configure the HTTP request pipeline.

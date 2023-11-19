@@ -1,7 +1,7 @@
 ﻿@page "/articleoverview"
 @inject Services.IArticleService Service
 <div>
-    <h3>EmployeeList</h3>
+    <h3>Article overview</h3>
     <div class="form-group">
         <a class="btn btn-success" href="createemployee"><i class="oi oi-plus"></i> Create New</a>
     </div>
@@ -15,30 +15,21 @@
                         ID
                     </th>
                     <th scope="col">
-                        Name
-                    </th>
-                    <th scope="col">
-                        Gender
-                    </th>
-                    <th scope="col">
-                        DOB
-                    </th>
-                    <th scope="col">
-                        Department
+                        Subject
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var employee in articles) {
+                @foreach (var article in articles) {
                     <tr>
                         <td>
-                            @employee.ArticleId
+                            @article.ArticleId
                         </td>
                         <td>
-                            <a href=@($"employeedetails/{employee.ArticleId}")>@employee.ArticleId</a>
+                            <a href=@($"article/{article.ArticleId}")>@article.ArticleId</a>
                         </td>
                         <td>
-                            @employee.Subject
+                            @article.Subject
                         </td>
                     </tr>
                 }
