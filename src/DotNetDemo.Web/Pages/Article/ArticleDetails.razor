@@ -16,7 +16,7 @@
                     <h4>Subject : @Article.Subject</h4>
                 </div>
                 <div class="card-body text-center">
-                    <Editor @bind-Value="Article.Body" ScriptSrc="/js/tinymce/tinymce.js" />
+                    @((MarkupString)_bodyText)
                 </div>
                 <div class="card-footer text-center">
                     <a class="btn btn-primary" href="/articles">Back</a>
@@ -34,9 +34,13 @@
 
     public Models.Article Article { get; set; } = new Models.Article();
 
+    private string _bodyText = "";
+
     protected override async Task OnInitializedAsync()
     {
         Article = await Service.GetArticle(Guid.Parse(Id));
+
+        _bodyText = Article?.Body ?? "";
     }
 
     protected async void DeleteArticle()
