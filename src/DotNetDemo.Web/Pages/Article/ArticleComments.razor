@@ -16,6 +16,9 @@
                     <h4>Employee ID : @Article.ArticleId</h4>
                     <h4>Department : @Article.Subject</h4>
                 </div>
+                <div class="card-body text-center">
+                    @((MarkupString)_bodyText)
+                </div>
                 <div class="card-body text-center">Feedback
                     <InputText @bind-Value="NewArticleComment.Subject" />
                     <Editor @bind-Value="NewArticleComment.Body" ScriptSrc="/js/tinymce/tinymce.js" />
@@ -47,6 +50,8 @@
 
     public Models.ArticleComment NewArticleComment { get; set; } = new Models.ArticleComment();
 
+    private string _bodyText = "";
+
     private string Captcha = "";
     private int CaptchaLetters = 5;
 
@@ -59,6 +64,8 @@
         Article = await Service.GetArticle(Guid.Parse(Id));
 
         NewArticleComment.ArticleId = Article.ArticleId;
+
+        _bodyText = Article?.Body ?? "";
     }
 
     protected async void SubmitComment()
