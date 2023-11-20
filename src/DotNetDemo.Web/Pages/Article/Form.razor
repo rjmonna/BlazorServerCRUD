@@ -15,7 +15,7 @@
         <div class="form-group">
             <label>Article</label>
             <div>
-                <Editor @bind-Value="@Article.Body" class="form-control col-sm-3" Field="() => Article.Body" ScriptSrc="/js/tinymce/tinymce.js" />
+                <Editor @bind-Value="@Article.Body" class="form-control col-sm-3" Field="() => Article.Body" ScriptSrc="/js/tinymce/tinymce.js" Conf="@_tinyMceConf" />
                 <ValidationMessage For="@(() => Article.Body)" />
             </div>
         </div>
@@ -32,4 +32,6 @@
     public string ButtonText { get; set; } = "Save";
     [Parameter]
     public EventCallback OnValidSubmit { get; set; }
+
+    private Dictionary<string, object> _tinyMceConf { get; set; } = new Dictionary<string, object>() {{"promotion", false}};
 }
