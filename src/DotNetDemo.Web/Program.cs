@@ -25,6 +25,7 @@ builder.Services.AddHttpClient<IArticleCommentService, ArticleCommentService>(cl
     client.BaseAddress = new Uri(apiUrl);
 });
 
+builder.Services.AddApplicationInsightsTelemetry();
 builder.Services.AddBlazorApplicationInsights();
 
 var app = builder.Build();
