@@ -56,6 +56,9 @@ builder.Services.AddAzureClients(clientBuilder =>
     );
 });
 
+// The following line enables Application Insights telemetry collection.
+builder.Services.AddApplicationInsightsTelemetry();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

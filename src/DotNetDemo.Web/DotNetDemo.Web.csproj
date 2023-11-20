@@ -5,6 +5,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BlazorApplicationInsights" Version="2.2.2" />
     <PackageReference Include="BlazorCaptcha" Version="1.4.2" />
     <PackageReference Include="TinyMCE.Blazor" Version="1.0.4" />
   </ItemGroup>

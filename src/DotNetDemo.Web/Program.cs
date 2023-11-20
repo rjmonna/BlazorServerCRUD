@@ -1,3 +1,4 @@
+using BlazorApplicationInsights;
 using DotNetDemo.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,8 @@ builder.Services.AddHttpClient<IArticleCommentService, ArticleCommentService>(cl
 {
     client.BaseAddress = new Uri(apiUrl);
 });
+
+builder.Services.AddBlazorApplicationInsights();
 
 var app = builder.Build();
 
