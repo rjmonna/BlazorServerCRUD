@@ -9,10 +9,10 @@ namespace DotNetDemo.Api.Models.Azure
 {
     public class ArticleComment : ITableEntity
     {
-        public string PartitionKey { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string RowKey { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DateTimeOffset? Timestamp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public ETag ETag { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string PartitionKey { get; set; }
+        public string RowKey { get; set; }
+        public DateTimeOffset? Timestamp { get; set; }
+        public ETag ETag { get; set; }
 
         public Guid ArticleCommentId { get; set; }
 
@@ -28,6 +28,8 @@ namespace DotNetDemo.Api.Models.Azure
 
         public DateTime? DeletionDate { get; set; }
 
-        public bool IsDismissed { get; set; }
+        public bool IsApproved { get; set; }
+
+        public bool IsDeclined { get; set; }
     }
 }

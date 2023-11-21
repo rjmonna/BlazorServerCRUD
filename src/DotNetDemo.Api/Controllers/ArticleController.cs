@@ -18,13 +18,13 @@ namespace DotNetDemo.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> SearchArticles(int? top = 0, int? skip = 0, bool? isDescending = true)
+        public async Task<ActionResult<IEnumerable<Article>>> SearchArticles(int? top = 0, int? skip = 0, bool? isDescending = true)
         {
             return Ok(await _articleRepository.SearchArticles());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetArticle(Guid id)
+        public async Task<ActionResult<Article>> GetArticle(Guid id)
         {
             return Ok(await _articleRepository.GetArticle(id));
         }

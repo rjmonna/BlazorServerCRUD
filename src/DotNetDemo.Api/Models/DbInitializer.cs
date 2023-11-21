@@ -1,3 +1,4 @@
+using Azure.Data.Tables;
 using DotNetDemo.Models;
 
 namespace DotNetDemo.Api.Models
@@ -102,6 +103,26 @@ namespace DotNetDemo.Api.Models
             context.Articles.Add(article);
 
             context.SaveChanges();
+        }
+
+        public static async void InitializeAsync(InMemoryTableServiceClient tableServiceClient)
+        {
+            InMemoryTableClient client = new InMemoryTableClient();
+
+            await client.AddEntityAsync(new Azure.ArticleComment{
+                ArticleCommentId = Guid.NewGuid(),
+                ArticleId = Guid.NewGuid(),
+                Body = "test",
+                CreationDate = DateTime.UtcNow,
+                ModificationDate = DateTime.UtcNow,
+                PartitionKey = "ArticleComment",
+                RowKey = Guid.NewGuid().ToString(),
+                Subject = "Test",
+                IsApproved = false,
+                IsDeclined = false
+            });
+
+            tableServiceClient.TableClients["ArticleComment"] = client;
         }
     }
 }

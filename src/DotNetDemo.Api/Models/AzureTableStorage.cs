@@ -57,6 +57,21 @@ namespace DotNetDemo.Api.Models
             return result;
         }
 
+        public async Task<IEnumerable<T>> QueryAsync<T>(string tableName, string? query = null, CancellationToken cancellationToken = default) where T : class, ITableEntity {
+            var client = await EnsureTable(tableName);
+
+            var result = new List<T>();
+
+            await foreach(var page in client.QueryAsync<T>(query).AsPages())
+            {
+                if (cancellationToken.IsCancellationRequested) break;
+
+                result.AddRange(page.Values);
+            }
+
+            return result;
+        }
+
         public async Task<object> AddOrUpdateAsync(string tableName, ITableEntity entity, CancellationToken cancellationToken = default) {
             var client = await EnsureTable(tableName);
             
@@ -99,9 +114,9 @@ namespace DotNetDemo.Api.Models
         {
             if (!clients.ContainsKey(tableName))
             {
-                var result = await _tableServiceClient.CreateTableIfNotExistsAsync(tableName);
+                await _tableServiceClient.CreateTableIfNotExistsAsync(tableName);
 
-                clients[tableName] = _tableServiceClient.GetTableClient(tableName);
+                clients.Add(tableName, _tableServiceClient.GetTableClient(tableName));
             }
 
             return clients[tableName];

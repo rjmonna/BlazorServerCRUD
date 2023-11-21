@@ -49,12 +49,14 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAzureClients(clientBuilder =>
-{
-    clientBuilder.AddTableServiceClient(
-        builder.Configuration.GetSection("ArticleCommentStorage")
-    );
-});
+// builder.Services.AddAzureClients(clientBuilder =>
+// {
+//     clientBuilder.AddTableServiceClient(
+//         builder.Configuration.GetSection("ArticleCommentStorage")
+//     );
+// });
+
+builder.Services.AddScoped<TableServiceClient, InMemoryTableServiceClient>();
 
 // The following line enables Application Insights telemetry collection.
 builder.Services.AddApplicationInsightsTelemetry();
@@ -72,6 +74,13 @@ using (var scope = app.Services.CreateScope())
     var secondContext = services.GetRequiredService<AppSecondDbContext>();
     secondContext.Database.EnsureCreated();
     DbInitializer.Initialize(secondContext);
+
+    var tableServiceClient = services.GetRequiredService<TableServiceClient>();
+
+    if (tableServiceClient is InMemoryTableServiceClient)
+    {
+        DbInitializer.InitializeAsync((InMemoryTableServiceClient)tableServiceClient);
+    }
 }
 
 // Configure the HTTP request pipeline.
