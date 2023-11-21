@@ -9,9 +9,9 @@ namespace DotNetDemo.Api.Models
 {
     public class InMemoryTableServiceClient : TableServiceClient
     {
-        Dictionary<string, TableClient> _tableClients;
+        Dictionary<string, InMemoryTableClient> _tableClients;
 
-        public InMemoryTableServiceClient(Dictionary<string, TableClient> tableClients) : base()
+        public InMemoryTableServiceClient(Dictionary<string, InMemoryTableClient> tableClients) : base()
         {
             _tableClients = tableClients;
         }
