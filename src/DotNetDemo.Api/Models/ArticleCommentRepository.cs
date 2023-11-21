@@ -1,12 +1,11 @@
-using Azure.Data.Tables;
-
 namespace DotNetDemo.Api.Models
 {
     public class ArticleCommentRepository : IArticleCommentRepository
     {
-        private readonly AzureTableStorage _azureTableStorage;
-        public ArticleCommentRepository(TableServiceClient tableServiceClient) {
-            _azureTableStorage = new AzureTableStorage(tableServiceClient);
+        private readonly IAzureTableStorage _azureTableStorage;
+
+        public ArticleCommentRepository(IAzureTableStorage azureTableStorage) {
+            _azureTableStorage = azureTableStorage;
         }
 
         public async Task CreateArticleComment(Azure.ArticleComment comment)

@@ -105,7 +105,7 @@ namespace DotNetDemo.Api.Models
             context.SaveChanges();
         }
 
-        public static async void InitializeAsync(InMemoryTableServiceClient tableServiceClient)
+        public static async Task InitializeAsync(InMemoryTableServiceClient tableServiceClient)
         {
             InMemoryTableClient client = new InMemoryTableClient();
 

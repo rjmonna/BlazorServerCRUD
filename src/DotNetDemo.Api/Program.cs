@@ -45,6 +45,8 @@ builder.Services.AddScoped<IArticleCommentRepository, ArticleCommentRepository>(
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
+builder.Services.AddScoped<IAzureTableStorage, AzureTableStorage>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -79,7 +81,7 @@ using (var scope = app.Services.CreateScope())
 
     if (tableServiceClient is InMemoryTableServiceClient)
     {
-        DbInitializer.InitializeAsync((InMemoryTableServiceClient)tableServiceClient);
+        await DbInitializer.InitializeAsync((InMemoryTableServiceClient)tableServiceClient);
     }
 }
 

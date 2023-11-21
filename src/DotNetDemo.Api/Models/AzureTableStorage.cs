@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DotNetDemo.Api.Models
 {
-    public class AzureTableStorage
+    public class AzureTableStorage : IAzureTableStorage
     {
         private TableServiceClient _tableServiceClient;
 
