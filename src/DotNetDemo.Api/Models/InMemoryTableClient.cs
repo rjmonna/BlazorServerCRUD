@@ -102,7 +102,7 @@ namespace DotNetDemo.Api.Models
         {
             var language = new ODataFilterLanguage();
 
-            Expression<Func<T, bool>> predicate = language.Parse<T>(filter);
+            Expression<Func<T, bool>> predicate = filter == null ? ((T) => true) : language.Parse<T>(filter);
 
             return QueryAsync<T>(predicate, maxPerPage, select, cancellationToken);
         }

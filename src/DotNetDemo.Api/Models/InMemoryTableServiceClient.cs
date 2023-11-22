@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Azure;
 using Azure.Data.Tables;
 using Azure.Data.Tables.Models;
@@ -7,18 +8,20 @@ namespace DotNetDemo.Api.Models
 {
     public class InMemoryTableServiceClient : TableServiceClient
     {
-        public Dictionary<string, InMemoryTableClient> TableClients { get; set; } = new Dictionary<string, InMemoryTableClient>();
+        private static Dictionary<string, InMemoryTableClient> s_tableClients = new Dictionary<string, InMemoryTableClient>();
 
         public override TableClient GetTableClient(string tableName)
         {
-            return TableClients[tableName] ?? throw new InvalidOperationException($"Unable to get in memory table client '{tableName}'.");
+            CreateTableIfNotExists(tableName);
+
+            return s_tableClients[tableName];
         }
 
         public override async Task<Response<TableItem>> CreateTableIfNotExistsAsync(string tableName, CancellationToken cancellationToken = default)
         {
-            if (!TableClients.ContainsKey(tableName))
+            if (!s_tableClients.ContainsKey(tableName))
             {
-                TableClients[tableName] = new InMemoryTableClient();
+                s_tableClients[tableName] = new InMemoryTableClient();
             }
 
             Mock<Response> responseMock = new();
@@ -26,6 +29,11 @@ namespace DotNetDemo.Api.Models
 
             Response response = responseMock.Object;
             return Response.FromValue(new TableItem(tableName), response);
+        }
+
+        public override Response<TableItem> CreateTableIfNotExists(string tableName, CancellationToken cancellationToken = default)
+        {
+            return CreateTableIfNotExistsAsync(tableName, cancellationToken).Result;
         }
     }
 }

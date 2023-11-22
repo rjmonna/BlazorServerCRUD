@@ -107,7 +107,7 @@ namespace DotNetDemo.Api.Models
 
         public static async Task InitializeAsync(InMemoryTableServiceClient tableServiceClient)
         {
-            InMemoryTableClient client = new InMemoryTableClient();
+            TableClient client = tableServiceClient.GetTableClient("ArticleComment");
 
             await client.AddEntityAsync(new Azure.ArticleComment{
                 ArticleCommentId = Guid.NewGuid(),
@@ -121,8 +121,6 @@ namespace DotNetDemo.Api.Models
                 IsApproved = false,
                 IsDeclined = false
             });
-
-            tableServiceClient.TableClients["ArticleComment"] = client;
         }
     }
 }
