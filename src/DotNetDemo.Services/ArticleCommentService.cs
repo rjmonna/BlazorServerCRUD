@@ -23,9 +23,30 @@ namespace DotNetDemo.Services
             return await _httpClient.GetFromJsonAsync<ArticleComment[]>("api/articlecomment/open");
         }
 
-        public async Task ApproveComment(Guid id)
+        public async Task ApproveArticleComment(Guid id)
         {
-            await _httpClient.PostAsJsonAsync<Guid>($"api/articlecomment/approval", id);
+            await _httpClient.PostAsJsonAsync($"api/articlecomment/{id}/approve", true);
+
+            return;
+        }
+
+        public async Task DeclineArticleComment(Guid id)
+        {
+            await _httpClient.PostAsJsonAsync($"api/articlecomment/{id}/decline", true);
+
+            return;
+        }
+
+        public async Task ProcessArticleComment(Guid id)
+        {
+            await _httpClient.PostAsJsonAsync($"api/articlecomment/{id}/process", true);
+
+            return;
+        }
+
+        public async Task PurgeArticleComment(Guid id)
+        {
+            await _httpClient.PostAsJsonAsync($"api/articlecomment/{id}/purge", true);
 
             return;
         }

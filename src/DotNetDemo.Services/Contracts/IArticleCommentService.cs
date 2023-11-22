@@ -9,6 +9,12 @@ namespace DotNetDemo.Services.Contracts
 
         Task<IEnumerable<ArticleComment>> GetPendingArticleComments();
 
-        Task ApproveComment(Guid id);
+        Task ApproveArticleComment(Guid id);
+
+        Task DeclineArticleComment(Guid id);
+
+        Task ProcessArticleComment(Guid id);
+
+        Task PurgeArticleComment(Guid id);
     }
 }

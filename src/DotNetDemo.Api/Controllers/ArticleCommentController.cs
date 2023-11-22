@@ -51,6 +51,14 @@ namespace DotNetDemo.Api.Controllers
             return Ok();
         }
 
+        [HttpPut("{id}/purge")]
+        public async Task<ActionResult> PurgeArticleComment(Guid id)
+        {
+            await _articleCommentRepository.Purge(id);
+
+            return Ok();
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Models.Azure.ArticleComment>> GetArticleComment(Guid id)
         {
