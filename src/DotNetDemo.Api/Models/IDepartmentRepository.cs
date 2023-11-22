@@ -1,5 +1,4 @@
 using DotNetDemo.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetDemo.Api.Models
 {

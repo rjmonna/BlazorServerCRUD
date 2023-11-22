@@ -1,10 +1,6 @@
 using System.Text.Json.Serialization;
 using DotNetDemo.Api.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Azure;
-using Microsoft.Extensions.DependencyInjection;
 using Azure.Data.Tables;
 
 var builder = WebApplication.CreateBuilder(args);

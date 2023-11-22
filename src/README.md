@@ -9,6 +9,7 @@ A showcase of different modern .NET and web technologies.
 
 * dotnet publish DotNetDemo.Web/DotNetDemo.Web.csproj -o ../DotNetDemo.Web
 * dotnet publish DotNetDemo.Api/DotNetDemo.Api.csproj -o ../DotNetDemo.Api
+* dotnet publish DotNetDemo.Api/DotNetDemo.Worker.csproj -o ../DotNetDemo.Worker
 * tar -cjvf DotnetDemo.tar.bz2 ../DotNetDemo.*
 * scp -i ~/.ssh/key DotNetDemo.tar.bz2 user@host:
 * rm DotNetDemo.tar.bz2

@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using DotNetDemo.Models;
 using Microsoft.EntityFrameworkCore;
 

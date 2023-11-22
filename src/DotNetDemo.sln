@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetDemo.Models", "DotNet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetDemo.Api", "DotNetDemo.Api\DotNetDemo.Api.csproj", "{7897104C-2A09-4B95-9AF5-2005B5B350CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetDemo.Worker", "DotNetDemo.Worker\DotNetDemo.Worker.csproj", "{527455A6-6040-4E0A-9684-4928C9835A1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{7897104C-2A09-4B95-9AF5-2005B5B350CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7897104C-2A09-4B95-9AF5-2005B5B350CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7897104C-2A09-4B95-9AF5-2005B5B350CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{527455A6-6040-4E0A-9684-4928C9835A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{527455A6-6040-4E0A-9684-4928C9835A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{527455A6-6040-4E0A-9684-4928C9835A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{527455A6-6040-4E0A-9684-4928C9835A1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

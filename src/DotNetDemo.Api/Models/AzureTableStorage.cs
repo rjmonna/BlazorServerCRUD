@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Azure.Data.Tables;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DotNetDemo.Api.Models
 {
