@@ -1,8 +1,10 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using AutoMapper;
+using AutoMapper.Internal;
 using Azure;
 using Azure.Data.Tables;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Moq;
 using StringToExpression.LanguageDefinitions;
 
@@ -12,13 +14,17 @@ namespace DotNetDemo.Api.Models
     {
         private Dictionary<string, Dictionary<string, DynamicTableEntity>> _tableStore = new Dictionary<string, Dictionary<string, DynamicTableEntity>>();
 
-        private static IMapper _mapper;
+        //private static IMapper _mapper;
 
         static InMemoryTableClient()
         {
-            var configuration = new MapperConfiguration(cfg => {});
+            // var configuration = new MapperConfiguration(cfg => {
+            //     cfg
+            //         .CreateMap<object, DynamicTableEntity>()
+            //         .ReverseMap();
+            // });
 
-            _mapper = configuration.CreateMapper();
+            // _mapper = configuration.CreateMapper();
         }
 
         public override async Task<Response<T>> GetEntityAsync<T>(string partitionKey, string rowKey, IEnumerable<string> select = null, CancellationToken cancellationToken = default)
@@ -159,7 +165,14 @@ namespace DotNetDemo.Api.Models
 
         private static T MapDynamic<T>(DynamicTableEntity obj)
         {
-            return _mapper.Map<T>(obj);
+            T result = Activator.CreateInstance<T>();
+
+            foreach (var kvp in obj)
+            {
+                typeof(T).SetMemberValue(kvp.Key, kvp.Value);
+            }
+
+            return result;
         }
 
         private static List<DynamicTableEntity> MapDynamicList<T>(IEnumerable<T> obj)
@@ -173,10 +186,16 @@ namespace DotNetDemo.Api.Models
 
         private static DynamicTableEntity MapDynamic<T>(T obj)
         {
-            return _mapper
-                .Map<DynamicTableEntity>(typeof(T)
-                    .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                    .ToDictionary(prop => prop.Name, prop => prop.GetValue(obj, null)));
+            var result = new DynamicTableEntity();
+
+            var sourceType = typeof(T);
+
+            sourceType
+                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                .ToList()
+                .ForEach(p => result[p.Name] = p.GetValue(obj));
+
+            return result;
         }
     }
 }
