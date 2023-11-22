@@ -154,37 +154,38 @@ namespace DotNetDemo.Api.Models
             return response;
         }
 
-        private static List<T> MapDynamicList<T>(IEnumerable<DynamicTableEntity> obj)
+        private static List<T> MapDynamicList<T>(IEnumerable<DynamicTableEntity> obj, IEnumerable<string> select = null)
         {
             if (obj == null) return null;
 
             return obj
-                .Select(MapDynamic<T>)
+                .Select(o => MapDynamic<T>(o, select))
                 .ToList();
         }
 
-        private static T MapDynamic<T>(DynamicTableEntity obj)
+        private static T MapDynamic<T>(DynamicTableEntity obj, IEnumerable<string> select = null)
         {
             T result = Activator.CreateInstance<T>();
 
-            foreach (var kvp in obj)
-            {
-                typeof(T).SetMemberValue(kvp.Key, kvp.Value);
-            }
+            obj
+                .Where(kvp => (select == null || select.Contains(kvp.Key))
+                    && (typeof(T).GetProperty(kvp.Key) != null))
+                .ToList()
+                .ForEach(kvp => typeof(T).GetProperty(kvp.Key)!.SetValue(result, kvp.Value));
 
             return result;
         }
 
-        private static List<DynamicTableEntity> MapDynamicList<T>(IEnumerable<T> obj)
+        private static List<DynamicTableEntity> MapDynamicList<T>(IEnumerable<T> obj, IEnumerable<string> select = null)
         {
             if (obj == null) return null;
 
             return obj
-                .Select(MapDynamic<T>)
+                .Select(o => MapDynamic<T>(o, select))
                 .ToList();
         }
 
-        private static DynamicTableEntity MapDynamic<T>(T obj)
+        private static DynamicTableEntity MapDynamic<T>(T obj, IEnumerable<string> select = null)
         {
             var result = new DynamicTableEntity();
 
@@ -192,6 +193,7 @@ namespace DotNetDemo.Api.Models
 
             sourceType
                 .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                .Where(p => select == null || select.Contains(p.Name))
                 .ToList()
                 .ForEach(p => result[p.Name] = p.GetValue(obj));
 
