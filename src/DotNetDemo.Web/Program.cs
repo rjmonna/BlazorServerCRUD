@@ -1,5 +1,6 @@
 using BlazorApplicationInsights;
-using DotNetDemo.Web.Services;
+using DotNetDemo.Services;
+using DotNetDemo.Services.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 

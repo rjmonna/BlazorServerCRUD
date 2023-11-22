@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 @using TinyMCE.Blazor
-@inject Services.IArticleService Service
+@inject DotNetDemo.Services.Contracts.IArticleService Service
 
 @if (Article != null) {
     <EditForm Model="@Article" OnValidSubmit="@OnValidSubmit">

@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DotNetDemo.Models\DotNetDemo.Models.csproj" />
+    <ProjectReference Include="..\DotNetDemo.Services\DotNetDemo.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

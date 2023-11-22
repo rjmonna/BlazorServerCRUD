@@ -1,6 +1,8 @@
+using System.Net.Http.Json;
 using DotNetDemo.Models;
+using DotNetDemo.Services.Contracts;
 
-namespace DotNetDemo.Web.Services
+namespace DotNetDemo.Services
 {
     public class DepartmentService : IDepartmentService
     {

@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
-@inject Services.IDepartmentService Service
+@inject DotNetDemo.Services.Contracts.IDepartmentService Service
 
 @if (department != null) {
     <EditForm Model="@department" OnValidSubmit="@OnValidSubmit">

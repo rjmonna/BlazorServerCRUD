@@ -1,6 +1,6 @@
 using DotNetDemo.Models;
 
-namespace DotNetDemo.Web.Services
+namespace DotNetDemo.Services.Contracts
 {
     public interface IArticleService
     {
