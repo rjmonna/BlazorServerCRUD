@@ -1,10 +1,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
-using AutoMapper;
-using AutoMapper.Internal;
 using Azure;
 using Azure.Data.Tables;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Moq;
 using StringToExpression.LanguageDefinitions;
 
@@ -13,19 +10,6 @@ namespace DotNetDemo.Api.Models
     public class InMemoryTableClient : TableClient
     {
         private Dictionary<string, Dictionary<string, DynamicTableEntity>> _tableStore = new Dictionary<string, Dictionary<string, DynamicTableEntity>>();
-
-        //private static IMapper _mapper;
-
-        static InMemoryTableClient()
-        {
-            // var configuration = new MapperConfiguration(cfg => {
-            //     cfg
-            //         .CreateMap<object, DynamicTableEntity>()
-            //         .ReverseMap();
-            // });
-
-            // _mapper = configuration.CreateMapper();
-        }
 
         public override async Task<Response<T>> GetEntityAsync<T>(string partitionKey, string rowKey, IEnumerable<string> select = null, CancellationToken cancellationToken = default)
         {
@@ -46,7 +30,7 @@ namespace DotNetDemo.Api.Models
             }
 
             Response response = responseMock.Object;
-            return Response.FromValue<T>(MapDynamic<T>(record), response);
+            return Response.FromValue<T>(MapDynamic<T>(record, select), response);
         }
 
         public override async Task<Response> AddEntityAsync<T>(T entity, CancellationToken cancellationToken = default)
@@ -83,7 +67,7 @@ namespace DotNetDemo.Api.Models
         {
             var result = _tableStore
                 .Values
-                .SelectMany(d => MapDynamicList<T>(d.Values));
+                .SelectMany(d => MapDynamicList<T>(d.Values, select));
 
             Mock<Response> responseMock = new();
 
@@ -154,17 +138,19 @@ namespace DotNetDemo.Api.Models
             return response;
         }
 
-        private static List<T> MapDynamicList<T>(IEnumerable<DynamicTableEntity> obj, IEnumerable<string> select = null)
+        private static List<T> MapDynamicList<T>(IEnumerable<DynamicTableEntity> obj, IEnumerable<string>? select = null)
         {
-            if (obj == null) return null;
+            if (obj == null) throw new ArgumentNullException(nameof(obj));
 
             return obj
                 .Select(o => MapDynamic<T>(o, select))
                 .ToList();
         }
 
-        private static T MapDynamic<T>(DynamicTableEntity obj, IEnumerable<string> select = null)
+        private static T MapDynamic<T>(DynamicTableEntity obj, IEnumerable<string>? select = null)
         {
+            if (obj == null) throw new ArgumentNullException(nameof(obj));
+
             T result = Activator.CreateInstance<T>();
 
             obj
@@ -176,16 +162,16 @@ namespace DotNetDemo.Api.Models
             return result;
         }
 
-        private static List<DynamicTableEntity> MapDynamicList<T>(IEnumerable<T> obj, IEnumerable<string> select = null)
+        private static List<DynamicTableEntity> MapDynamicList<T>(IEnumerable<T> obj, IEnumerable<string>? select = null)
         {
-            if (obj == null) return null;
+            if (obj == null) throw new ArgumentNullException(nameof(obj));
 
             return obj
                 .Select(o => MapDynamic<T>(o, select))
                 .ToList();
         }
 
-        private static DynamicTableEntity MapDynamic<T>(T obj, IEnumerable<string> select = null)
+        private static DynamicTableEntity MapDynamic<T>(T obj, IEnumerable<string>? select = null)
         {
             var result = new DynamicTableEntity();
 

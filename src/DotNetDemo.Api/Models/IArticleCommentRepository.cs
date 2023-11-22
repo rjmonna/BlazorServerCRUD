@@ -12,5 +12,9 @@ namespace DotNetDemo.Api.Models
         Task Approve(Guid id);
 
         Task Decline(Guid id);
+
+        Task Delete(Guid id);
+
+        Task Purge(Guid id);
     }
 }

@@ -9,16 +9,46 @@ namespace DotNetDemo.Api.Controllers
     public class ArticleCommentController : ControllerBase
     {
         private readonly IArticleCommentRepository _articleCommentRepository;
+        private readonly IArticleRepository _articleRepository;
 
-        public ArticleCommentController(IArticleCommentRepository articleCommentRepository)
+        public ArticleCommentController(IArticleCommentRepository articleCommentRepository, IArticleRepository articleRepository)
         {
             _articleCommentRepository = articleCommentRepository;
+            _articleRepository = articleRepository;
         }
 
         [HttpGet("open")]
         public async Task<ActionResult<IEnumerable<Models.Azure.ArticleComment>>> GetPendingArticleComments()
         {
             return Ok(await _articleCommentRepository.GetPending());
+        }
+
+        [HttpPut("{id}/process")]
+        public async Task<ActionResult> ProcessArticleComment(Guid id)
+        {
+            var articleComment = await _articleCommentRepository.Get(id);
+
+            var article = await _articleRepository.GetArticle(articleComment.ArticleId);
+
+            if (article == null) throw new InvalidOperationException($"Could not find Article with Id '{id}' to process comment for.");
+
+            if (articleComment.IsApproved)
+            {
+                article.ArticleComments.Add(new ArticleComment{
+                    Body = articleComment.Body,
+                    Subject = articleComment.Subject
+                });
+
+                await _articleRepository.UpdateArticle(article);
+
+                await _articleCommentRepository.Delete(id);
+            }
+            else if (articleComment.IsDeclined)
+            {
+                await _articleCommentRepository.Delete(id);
+            }
+
+            return Ok();
         }
 
         [HttpGet("{id}")]
