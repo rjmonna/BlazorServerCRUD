@@ -20,7 +20,7 @@
                 @foreach (var comment in ArticleComments) {
                     <tr>
                         <td>
-                            <a href=@($"articledetails/{comment.ArticleId}")>@comment.ArticleId</a>
+                            <a href=@($"article/{comment.ArticleId}/comment/{comment.ArticleCommentId}")>@comment.ArticleCommentId</a>
                         </td>
                         <td>
                             @comment.Subject
