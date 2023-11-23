@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
-using DotNetDemo.Api.Models;
+using DotNetDemo.Infrastructure;
+using DotNetDemo.Infrastructure.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Azure.Data.Tables;
 

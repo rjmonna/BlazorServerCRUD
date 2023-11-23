@@ -1,6 +1,6 @@
 using DotNetDemo.Models;
 
-namespace DotNetDemo.Api.Models
+namespace DotNetDemo.Infrastructure.Contracts
 {
     public interface IEmployeeRepository
     {

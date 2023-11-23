@@ -1,7 +1,8 @@
+using DotNetDemo.Infrastructure.Contracts;
 using DotNetDemo.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DotNetDemo.Api.Models
+namespace DotNetDemo.Infrastructure
 {
     public class DepartmentRepository : IDepartmentRepository
     {

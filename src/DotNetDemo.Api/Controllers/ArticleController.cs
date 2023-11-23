@@ -1,4 +1,5 @@
-using DotNetDemo.Api.Models;
+using DotNetDemo.Infrastructure;
+using DotNetDemo.Infrastructure.Contracts;
 using DotNetDemo.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,7 +57,7 @@ namespace DotNetDemo.Api.Controllers
         [HttpPost("{id}/comment")]
         public ActionResult CommentArticle(ArticleComment comment)
         {
-            _articleCommentRepository.CreateArticleComment(new Models.Azure.ArticleComment{
+            _articleCommentRepository.CreateArticleComment(new DotNetDemo.Infrastructure.Azure.ArticleComment{
                 Subject = comment.Subject,
                 Body = comment.Body
             });

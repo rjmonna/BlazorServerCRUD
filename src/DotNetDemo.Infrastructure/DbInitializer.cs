@@ -1,7 +1,7 @@
 using Azure.Data.Tables;
 using DotNetDemo.Models;
 
-namespace DotNetDemo.Api.Models
+namespace DotNetDemo.Infrastructure
 {
     public static class DbInitializer
     {

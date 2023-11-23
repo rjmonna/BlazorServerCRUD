@@ -5,7 +5,7 @@ using Azure.Data.Tables.Models;
 using Moq;
 using StringToExpression.LanguageDefinitions;
 
-namespace DotNetDemo.Api.Models
+namespace DotNetDemo.Infrastructure
 {
     public class InMemoryTableServiceClient : TableServiceClient
     {

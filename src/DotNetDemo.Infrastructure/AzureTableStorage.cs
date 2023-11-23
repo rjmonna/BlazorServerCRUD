@@ -1,7 +1,8 @@
 using System.Linq.Expressions;
 using Azure.Data.Tables;
+using DotNetDemo.Infrastructure.Contracts;
 
-namespace DotNetDemo.Api.Models
+namespace DotNetDemo.Infrastructure
 {
     public class AzureTableStorage : IAzureTableStorage
     {

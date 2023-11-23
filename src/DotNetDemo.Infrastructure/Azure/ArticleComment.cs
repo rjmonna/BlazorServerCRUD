@@ -1,7 +1,7 @@
 using Azure;
 using Azure.Data.Tables;
 
-namespace DotNetDemo.Api.Models.Azure
+namespace DotNetDemo.Infrastructure.Azure
 {
     public class ArticleComment : ITableEntity
     {

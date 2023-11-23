@@ -1,4 +1,6 @@
-namespace DotNetDemo.Api.Models
+using DotNetDemo.Infrastructure.Contracts;
+
+namespace DotNetDemo.Infrastructure
 {
     public class ArticleCommentRepository : IArticleCommentRepository
     {

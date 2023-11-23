@@ -1,6 +1,8 @@
-using DotNetDemo.Api.Models;
+using DotNetDemo.Infrastructure;
+using DotNetDemo.Infrastructure.Contracts;
 using DotNetDemo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 
 namespace DotNetDemo.Api.Controllers
 {
@@ -18,7 +20,7 @@ namespace DotNetDemo.Api.Controllers
         }
 
         [HttpGet("open")]
-        public async Task<ActionResult<IEnumerable<Models.Azure.ArticleComment>>> GetPendingArticleComments()
+        public async Task<ActionResult<IEnumerable<DotNetDemo.Infrastructure.Azure.ArticleComment>>> GetPendingArticleComments()
         {
             return Ok(await _articleCommentRepository.GetPending());
         }
@@ -60,7 +62,7 @@ namespace DotNetDemo.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Models.Azure.ArticleComment>> GetArticleComment(Guid id)
+        public async Task<ActionResult<DotNetDemo.Infrastructure.Azure.ArticleComment>> GetArticleComment(Guid id)
         {
             return Ok(await _articleCommentRepository.Get(id));
         }

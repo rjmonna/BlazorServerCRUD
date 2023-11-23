@@ -1,7 +1,7 @@
 using Azure;
 using Azure.Data.Tables;
 
-namespace DotNetDemo.Api.Models
+namespace DotNetDemo.Infrastructure
 {
     public class DynamicTableEntity : Dictionary<string, object?>, ITableEntity
     {

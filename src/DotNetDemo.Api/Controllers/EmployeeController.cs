@@ -1,4 +1,5 @@
-using DotNetDemo.Api.Models;
+using DotNetDemo.Infrastructure;
+using DotNetDemo.Infrastructure.Contracts;
 using DotNetDemo.Models;
 using Microsoft.AspNetCore.Mvc;
 
