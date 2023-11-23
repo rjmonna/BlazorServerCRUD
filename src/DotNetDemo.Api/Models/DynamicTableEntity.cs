@@ -5,7 +5,7 @@ namespace DotNetDemo.Api.Models
 {
     public class DynamicTableEntity : Dictionary<string, object?>, ITableEntity
     {
-        public string PartitionKey { 
+        public string PartitionKey {
             get {
                 if (!this.ContainsKey(nameof(PartitionKey)))
                 {
@@ -18,7 +18,8 @@ namespace DotNetDemo.Api.Models
                 this[nameof(PartitionKey)] = value;
             }
          }
-        public string RowKey { 
+
+        public string RowKey {
             get {
                 if (!this.ContainsKey(nameof(RowKey)))
                 {
@@ -31,7 +32,8 @@ namespace DotNetDemo.Api.Models
                 this[nameof(RowKey)] = value;
             }
          }
-        public DateTimeOffset? Timestamp { 
+
+        public DateTimeOffset? Timestamp {
             get {
                 if (!this.ContainsKey(nameof(Timestamp)))
                 {
@@ -44,7 +46,8 @@ namespace DotNetDemo.Api.Models
                 this[nameof(Timestamp)] = value;
             }
          }
-        public ETag ETag { 
+
+        public ETag ETag {
             get {
                 if (!this.ContainsKey(nameof(ETag)))
                 {
