@@ -68,7 +68,8 @@ namespace DotNetDemo.Infrastructure
             return result;
         }
 
-        public async Task<object> AddOrUpdateAsync(string tableName, ITableEntity entity, CancellationToken cancellationToken = default) {
+        public async Task<object> UpsertAsync<T>(string tableName, T entity, CancellationToken cancellationToken = default) where T : class, ITableEntity
+        {
             var client = await EnsureTable(tableName);
             
             var response = await client.UpsertEntityAsync(entity, cancellationToken: cancellationToken);
@@ -76,7 +77,8 @@ namespace DotNetDemo.Infrastructure
             return response;
         }
 
-        public async Task<object> DeleteAsync(string tableName, ITableEntity entity, CancellationToken cancellationToken = default) {
+        public async Task<object> DeleteAsync(string tableName, ITableEntity entity, CancellationToken cancellationToken = default)
+        {
             var client = await EnsureTable(tableName);
 
             var response = await client.DeleteEntityAsync(entity.PartitionKey, entity.RowKey, default, cancellationToken);
@@ -84,7 +86,8 @@ namespace DotNetDemo.Infrastructure
             return response;
         }
 
-        public async Task<object> AddAsync(string tableName, ITableEntity entity) {
+        public async Task<object> AddAsync<T>(string tableName, T entity) where T : class, ITableEntity
+        {
             var client = await EnsureTable(tableName);
 
             var response = await client.AddEntityAsync(entity);
@@ -92,13 +95,15 @@ namespace DotNetDemo.Infrastructure
             return response;
         }
 
-        public async Task<IEnumerable<T>> AddBatchAsync<T>(string tableName) where T : class, ITableEntity {
+        public async Task<IEnumerable<T>> AddBatchAsync<T>(string tableName) where T : class, ITableEntity
+        {
             var client = await EnsureTable(tableName);
 
             throw new NotImplementedException();
         }
 
-        public async Task<object> UpdateAsync(string tableName, ITableEntity entity, CancellationToken cancellationToken = default) {
+        public async Task<object> UpdateAsync<T>(string tableName, T entity, CancellationToken cancellationToken = default) where T : class, ITableEntity
+        {
             var client = await EnsureTable(tableName);
             
             var response = await client.UpdateEntityAsync(entity, entity.ETag, cancellationToken: cancellationToken);

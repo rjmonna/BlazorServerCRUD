@@ -15,8 +15,11 @@ namespace DotNetDemo.Infrastructure
 
         public async Task CreateArticleComment(Azure.ArticleComment comment)
         {
+            var articleCommentId = Guid.NewGuid();
+
+            comment.ArticleCommentId = articleCommentId;
             comment.PartitionKey = PartitionKey;
-            comment.RowKey = Guid.NewGuid().ToString();
+            comment.RowKey = articleCommentId.ToString();
 
             await _azureTableStorage.AddAsync(TableName, comment);
         }

@@ -14,13 +14,14 @@ namespace DotNetDemo.Infrastructure.Contracts
 
         Task<IEnumerable<T>> QueryAsync<T>(string tableName, string? query = null, CancellationToken cancellationToken = default) where T : class, ITableEntity;
 
-        Task<object> AddOrUpdateAsync(string tableName, ITableEntity entity, CancellationToken cancellationToken = default);
-
         Task<object> DeleteAsync(string tableName, ITableEntity entity, CancellationToken cancellationToken = default);
 
-        Task<object> AddAsync(string tableName, ITableEntity entity);
+        Task<object> AddAsync<T>(string tableName, T entity) where T : class, ITableEntity;
 
         Task<IEnumerable<T>> AddBatchAsync<T>(string tableName) where T : class, ITableEntity;
 
-        Task<object> UpdateAsync(string tableName, ITableEntity entity, CancellationToken cancellationToken = default);   }
+        Task<object> UpdateAsync<T>(string tableName, T entity, CancellationToken cancellationToken = default) where T : class, ITableEntity;
+
+        Task<object> UpsertAsync<T>(string tableName, T entity, CancellationToken cancellationToken = default) where T : class, ITableEntity;
+    }
 }

@@ -21,6 +21,6 @@ namespace DotNetDemo.Models
 
         public DateTime? DeletionDate { get; set; }
 
-        public Article Article { get; set; }
+        public Article? Article { get; set; }
     }
 }

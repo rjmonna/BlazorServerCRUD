@@ -19,6 +19,6 @@ namespace DotNetDemo.Models
 
         public DateTime? DeletionDate { get; set; }
 
-        public virtual ICollection<ArticleComment> ArticleComments { get; set; }
+        public virtual ICollection<ArticleComment>? ArticleComments { get; set; }
     }
 }

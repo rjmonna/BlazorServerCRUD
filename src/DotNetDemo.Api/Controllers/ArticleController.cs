@@ -58,6 +58,8 @@ namespace DotNetDemo.Api.Controllers
         public ActionResult CommentArticle(ArticleComment comment)
         {
             _articleCommentRepository.CreateArticleComment(new DotNetDemo.Infrastructure.Azure.ArticleComment{
+                ArticleCommentId = comment.ArticleCommentId,
+                ArticleId = comment.ArticleId,
                 Subject = comment.Subject,
                 Body = comment.Body
             });
