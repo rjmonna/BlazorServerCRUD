@@ -5,6 +5,8 @@ namespace DotNetDemo.Infrastructure
 {
     public static class DbInitializer
     {
+        private static Guid _articleKey = Guid.NewGuid();
+
         public static void Initialize(AppDbContext context)
         {
             if (context.Departments.Any()) return;
@@ -84,16 +86,15 @@ namespace DotNetDemo.Infrastructure
         {
             if (context.Articles.Any()) return;
 
-            Guid id = Guid.NewGuid();
-
             Article article = new Article
             {
-                ArticleId = id,
+                ArticleId = _articleKey,
                 Subject = "test",
                 Body = "test",
                 CreationDate = DateTime.UtcNow,
                 ModificationDate = DateTime.UtcNow,
                 ArticleComments = new[] { new ArticleComment {
+                    ArticleId = _articleKey,
                     ArticleCommentId = Guid.NewGuid(),
                     Subject = "test",
                     Body = "test"
@@ -109,14 +110,16 @@ namespace DotNetDemo.Infrastructure
         {
             TableClient client = tableServiceClient.GetTableClient("ArticleComment");
 
+            var key = Guid.NewGuid();
+
             await client.AddEntityAsync(new Azure.ArticleComment{
-                ArticleCommentId = Guid.NewGuid(),
-                ArticleId = Guid.NewGuid(),
+                ArticleCommentId = key,
+                ArticleId = _articleKey,
                 Body = "test",
                 CreationDate = DateTime.UtcNow,
                 ModificationDate = DateTime.UtcNow,
                 PartitionKey = "ArticleComment",
-                RowKey = Guid.NewGuid().ToString(),
+                RowKey = key.ToString(),
                 Subject = "Test",
                 IsApproved = false,
                 IsDeclined = false
