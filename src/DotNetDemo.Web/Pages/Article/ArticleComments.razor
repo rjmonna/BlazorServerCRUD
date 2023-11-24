@@ -20,7 +20,7 @@
                 </div>
                 <div class="card-body text-left">Subject<br />
                     <InputText @bind-Value="NewArticleComment.Subject" /><br />Body<br />
-                    <Editor @bind-Value="NewArticleComment.Body" ScriptSrc="/js/tinymce/tinymce.js" Conf="@_tinyMceConf" />
+                    <Editor @bind-Value="NewArticleComment.Body" ScriptSrc="/js/tinymce/tinymce.js" Conf="@_tinyMceConf" Field="() => NewArticleComment.Body" />
                     Captcha<Captcha @bind-CaptchaWord="@Captcha" CharNumber="@CaptchaLetters" />
                     Enter captcha<br /><InputText @bind-Value="GivenCaptcha" /><br />
                     <button class="btn btn-danger" @onclick="SubmitComment">Submit comment</button>
@@ -29,7 +29,7 @@
                     @if(Article.ArticleComments != null) {
                         @foreach(var comment in Article.ArticleComments) {
                             <h4>@comment.Subject</h4>
-                            <p>@comment.Body</p>
+                            <div>@((MarkupString)comment.Body)</div>
                         }
                     }
                 </div>

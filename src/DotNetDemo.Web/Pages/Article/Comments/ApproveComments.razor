@@ -14,6 +14,9 @@
                     <th scope="col">
                         Subject
                     </th>
+                    <th scope="col">
+                        Status
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +27,10 @@
                         </td>
                         <td>
                             @comment.Subject
+                        </td>
+                        <td>
+                            <Button Color="ButtonColor.Success" Size="Size.Small" @onclick="() => ApproveAsync(comment.ArticleCommentId)">Approve</Button>
+                            <Button Color="ButtonColor.Danger" Size="Size.Small" @onclick="() => DeclineAsync(comment.ArticleCommentId)">Decline</Button>
                         </td>
                     </tr>
                 }
@@ -36,6 +43,20 @@
 
     protected override async Task OnInitializedAsync()
     {
+        ArticleComments = await Service.GetPendingArticleComments();
+    }
+
+    private async Task ApproveAsync(Guid id)
+    {
+        await Service.ApproveArticleComment(id);
+        
+        ArticleComments = await Service.GetPendingArticleComments();
+    }
+
+    private async Task DeclineAsync(Guid id)
+    {
+        await Service.DeclineArticleComment(id);
+        
         ArticleComments = await Service.GetPendingArticleComments();
     }
 }

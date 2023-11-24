@@ -21,7 +21,7 @@
                 <div class="card-footer text-center">
                     <a class="btn btn-primary" href="/articles">Back</a>
                     <a class="btn btn-primary" href="/updatearticle/@Article.ArticleId">Edit</a>
-                    <button class="btn btn-danger" @onclick="DeleteArticle">Delete</button>
+                    <button class="btn btn-danger" @onclick="DeleteArticleAsync">Delete</button>
                 </div>
             }
         </div>
@@ -43,7 +43,7 @@
         _bodyText = Article?.Body ?? "";
     }
 
-    protected async void DeleteArticle()
+    protected async Task DeleteArticleAsync()
     {
         await Service.DeleteArticle(Guid.Parse(Id));
         navManager.NavigateTo("/");
